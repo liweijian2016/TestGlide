@@ -11,19 +11,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 
-import static com.bumptech.glide.Glide.with;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, Test{
 
     private static final String TAG = "MainActivity";
     private TextView mTextView;
     private ImageView mImageView;
     private Intent mIntent;
     private ArrayList<String> wechats; // 所有图片的路径.
+    private RequestOptions mOptions;
 
 
     @Override
@@ -32,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         initData();
+        mOptions = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.mipmap.placeholder)
+                .error(R.mipmap.ic_launcher)
+                .priority(Priority.HIGH)
+                .diskCacheStrategy(DiskCacheStrategy.NONE);
+
         mIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
     }
@@ -51,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 Glide
                         .with(this)
                         .load("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_redBlue.png")
+                        .apply(mOptions)
                         .into(mImageView);
-//                        .preload(200, 200);
-//                        .into(mImageView);
+
                 break;
             case R.id.mImageView:
 //                startActivity(mIntent);
@@ -62,9 +72,18 @@ public class MainActivity extends AppCompatActivity {
 //                recursion(file);
 //                test(Environment.getRootDirectory());
                 // 这个可以是任何Uri. 这里为了演示，我们只创建了一个指向桌面图标的Uri
-
                 Uri uri = resourceIdToUri(this, R.mipmap.ic_launcher_round);
-                with(this)
+//                Glide.with(this)
+//                        .load(uri)
+//                        .into(mImageView);
+//                Glide.with(this)
+//                        .asBitmap()
+//                        .load(uri)
+//                        .apply(mOptions)
+//                        .into(mImageView);
+                Glide.with(this)
+                        .asBitmap()
+                        .apply(mOptions)
                         .load(uri)
                         .into(mImageView);
                 break;
@@ -97,5 +116,15 @@ public class MainActivity extends AppCompatActivity {
                 recursion(f);
             }
         }
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return null;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

@@ -17,6 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+
+        Baidu {}
+        XiaoMi {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+    }
 }
 
 dependencies {
@@ -31,5 +41,6 @@ dependencies {
     compile 'com.github.bumptech.glide:gifdecoder:4.0.0'
     compile 'com.github.bumptech.glide:gifencoder-integration:4.0.0'
     compile 'com.github.bumptech.glide:annotations:4.0.0'
-//    compile 'com.github.bumptech.glide:compiler:4.0.0' // 有问题
+    //    compile 'com.github.bumptech.glide:compiler:4.0.0' // 有问题
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
