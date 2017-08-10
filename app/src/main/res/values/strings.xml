@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TestGlide</string>
     <string name="loadImage">加载图片</string>
+    <string name="testLambda">TestLambda</string>
 </resources>

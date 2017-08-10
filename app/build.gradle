@@ -9,7 +9,12 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        jackOptions.enabled = true;
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility org.gradle.api.JavaVersion.VERSION_1_8;
+        targetCompatibility org.gradle.api.JavaVersion.VERSION_1_8;
     }
     buildTypes {
         release {
@@ -43,4 +48,6 @@ dependencies {
     compile 'com.github.bumptech.glide:annotations:4.0.0'
     //    compile 'com.github.bumptech.glide:compiler:4.0.0' // 有问题
     compile 'com.umeng.analytics:analytics:latest.integration'
+    //    compile 'com.github.bumptech.glide:compiler:4.0.0'
+    compile 'com.android.support:support-v4:26.0.0-alpha1'
 }
